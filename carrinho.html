@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finalizar Pedido</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+    }
+
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"], select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .total {
+      text-align: right;
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .payment-option {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .payment-option label {
+      font-weight: normal;
+    }
+
+    #campo-troco {
+      display: none;
+      margin-top: 10px;
+    }
+
+    #campo-troco input {
+      margin-top: 5px;
+    }
+
+    .voltar-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ffffff;
+      color: rgb(0, 0, 0);
+      cursor: pointer;
+    }
+
+    .voltar-btn:hover {
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <button class="voltar-btn" onclick="window.location.href = 'index.html';">🔙 Voltar</button>
+
+  <div class="container">
+    <h2>🧾 Resumo do Pedido</h2>
+    <ul id="lista-carrinho"></ul>
+    <div class="total">Total: R$ <span id="valor-total">0.00</span></div>
+
+    <h3>🛍️ Tipo de Pedido</h3>
+<div class="tipo-pedido">
+  <label><input type="radio" name="tipo-pedido" value="entrega" checked> 🏠 Entrega</label>
+  <label><input type="radio" name="tipo-pedido" value="retirada"> 🏃‍♂️ Retirada no local</label>
+</div>
+
+    <form id="form-pedido">
+      <h3>📋 Dados do Cliente</h3>
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" required>
+
+      <label for="telefone">Telefone</label>
+      <input type="text" id="telefone" required>
+
+      <div id="bloco-entrega">
+  <h3>📦 Endereço de Entrega</h3>
+  <label for="endereco">Endereço</label>
+  <input type="text" id="endereco">
+
+  <label for="numero">Número</label>
+  <input type="text" id="numero">
+
+  <h3>💳 Forma de Pagamento</h3>
+  <div class="payment-option">
+    <label><input type="radio" name="pagamento" value="cartão"> 💳 Cartão</label>
+    <label><input type="radio" name="pagamento" value="pix"> 💠 Pix</label>
+    <label><input type="radio" name="pagamento" value="dinheiro"> 💵 Dinheiro</label>
+  </div>
+
+  <div id="campo-troco">
+    <label for="valor-troco">💵 Vai precisar de troco? Informe o valor da nota:</label>
+    <input type="text" id="valor-troco" placeholder="Ex: 100.00">
+  </div>
+</div>
+
+
+      <button type="submit">✅ Confirmar Pedido</button>
+    </form>
+  </div>
+  <style>
+  .tipo-pedido {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+</style>
+
+
+  <script>
+    const carrinho = JSON.parse(localStorage.getItem("cart")) || [];
+    const lista = document.getElementById("lista-carrinho");
+    const totalSpan = document.getElementById("valor-total");
+    let total = 0;
+
+    if (carrinho.length === 0) {
+      lista.innerHTML = `<li>🛒 Seu carrinho está vazio.</li>`;
+      totalSpan.textContent = "0.00";
+    } else {
+carrinho.forEach(item => {
+  const li = document.createElement("li");
+  const totalItem = item.price * item.quantity;
+  li.innerHTML = `
+    <div>
+      <strong>${item.name}</strong> (${item.quantity} un)<br>
+      ${item.detalhes ? `<small style="color: #555;">📝 ${item.detalhes}</small><br>` : ""}
+    </div>
+    <div><strong>R$ ${totalItem.toFixed(2)}</strong></div>
+  `;
+  lista.appendChild(li);
+  total += totalItem;
+});
+
+      totalSpan.textContent = total.toFixed(2);
+    }
+
+    const campoTroco = document.getElementById("campo-troco");
+    document.querySelectorAll('input[name="pagamento"]').forEach(radio => {
+      radio.addEventListener("change", function () {
+        campoTroco.style.display = (this.value === "dinheiro") ? "block" : "none";
+      });
+    });
+
+    document.getElementById("form-pedido").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value.trim();
+      const telefone = document.getElementById("telefone").value.trim();
+      const endereco = document.getElementById("endereco").value.trim();
+      const numero = document.getElementById("numero").value.trim();
+      const pagamento = document.querySelector('input[name="pagamento"]:checked').value;
+      const troco = document.getElementById("valor-troco").value.trim();
+
+      const tipoPedido = document.querySelector('input[name="tipo-pedido"]:checked').value;
+
+const pedido = {
+  nome,
+  telefone,
+  tipoPedido,
+  itens: carrinho
+};
+
+if (tipoPedido === "entrega") {
+  pedido.endereco = endereco;
+  pedido.numero = numero;
+  pedido.pagamento = pagamento;
+  pedido.troco = troco;
+}
+
+
+      fetch("http://localhost:5000/pedido", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(pedido)
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("✅ Pedido enviado com sucesso!");
+        localStorage.removeItem("cart");
+        window.location.href = "index.html";
+      })
+      .catch(error => {
+        console.error("Erro ao enviar pedido:", error);
+        alert("❌ Erro ao enviar pedido.");
+      });
+    });
+document.querySelectorAll('input[name="tipo-pedido"]').forEach(radio => {
+  radio.addEventListener('change', function () {
+    const blocoEntrega = document.getElementById('bloco-entrega');
+    if (this.value === "retirada") {
+      blocoEntrega.style.display = "none";
+    } else {
+      blocoEntrega.style.display = "block";
+    }
+  });
+});
+
+  </script>
+</body>
+</html>

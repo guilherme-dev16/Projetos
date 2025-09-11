@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Pedidos Recebidos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .filtro-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .pedido {
+      background: white;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .pedido h2 {
+      margin-top: 0;
+      color: #c00;
+    }
+
+    .pedido ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .pedido li {
+      margin-bottom: 5px;
+    }
+
+    .itens {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    .itens li {
+      margin-bottom: 8px;
+      border-bottom: 1px dashed #ddd;
+      padding-bottom: 5px;
+    }
+
+    .detalhes {
+      color: #555;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .btn-entregue {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-entregue:hover {
+      background-color: #218838;
+    }
+
+    .entregue {
+      background-color: #d4edda !important;
+      border: 1px solid #c3e6cb;
+    }
+
+    .data-hora {
+      font-size: 13px;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📦 Pedidos Recebidos</h1>
+
+  <div class="filtro-container">
+    <label for="filtro">Filtrar por pagamento:</label>
+    <select id="filtro">
+      <option value="todos">Todos</option>
+      <option value="cartão">Cartão</option>
+      <option value="pix">Pix</option>
+      <option value="dinheiro">Dinheiro</option>
+    </select>
+  </div>
+
+  <div id="lista-pedidos"></div>
+
+  <script>
+    let todosPedidos = [];
+
+    function formatarDataHora(dataIso) {
+      const data = new Date(dataIso);
+      return data.toLocaleString("pt-BR");
+    }
+
+    function renderizarPedidos(pedidos) {
+      const container = document.getElementById('lista-pedidos');
+      container.innerHTML = "";
+
+      if (pedidos.length === 0) {
+        container.innerHTML = "<p>Nenhum pedido encontrado.</p>";
+        return;
+      }
+
+      pedidos.forEach((pedido, index) => {
+        const div = document.createElement("div");
+        div.className = "pedido";
+        div.setAttribute("data-pagamento", pedido.pagamento.toLowerCase());
+
+        const itensHTML = pedido.itens.map(item => `
+          <li>
+            <strong>${item.name}</strong> x${item.quantity} — R$ ${(item.price * item.quantity).toFixed(2)}
+            ${item.detalhes ? `<div class="detalhes">📝 ${item.detalhes}</div>` : ""}
+          </li>
+        `).join("");
+
+        div.innerHTML = `
+          <h2>Pedido #${index + 1} - ${pedido.nome}</h2>
+          <ul>
+            <li><strong>Telefone:</strong> ${pedido.telefone}</li>
+            <li><strong>Endereço:</strong> ${pedido.endereco}, Nº ${pedido.numero}</li>
+            <li><strong>Pagamento:</strong> ${pedido.pagamento}</li>
+            ${pedido.pagamento === "dinheiro" ? `<li><strong>Troco para:</strong> R$ ${pedido.troco}</li>` : ""}
+          </ul>
+          <strong>Itens:</strong>
+          <ul class="itens">
+            ${itensHTML}
+          </ul>
+          <div class="data-hora">🕒 Recebido em: ${pedido.dataHora ? formatarDataHora(pedido.dataHora) : 'Desconhecido'}</div>
+          <button class="btn-entregue" onclick="marcarComoEntregue(this)">✅ Entregue</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function marcarComoEntregue(botao) {
+      const pedidoDiv = botao.parentElement;
+      pedidoDiv.classList.add("entregue");
+      botao.remove();
+    }
+
+    document.getElementById("filtro").addEventListener("change", function () {
+      const valor = this.value;
+      const pedidosFiltrados = valor === "todos"
+        ? todosPedidos
+        : todosPedidos.filter(p => p.pagamento.toLowerCase() === valor);
+      renderizarPedidos(pedidosFiltrados);
+    });
+
+    fetch('http://localhost:5000/pedidos')
+      .then(response => response.json())
+      .then(pedidos => {
+        pedidos.forEach(p => {
+          if (!p.dataHora) p.dataHora = new Date().toISOString();
+        });
+
+        todosPedidos = pedidos;
+        renderizarPedidos(todosPedidos);
+      })
+      .catch(error => {
+        console.error("Erro ao buscar pedidos:", error);
+        document.getElementById('lista-pedidos').innerHTML = "<p>Erro ao carregar os pedidos.</p>";
+      });
+  </script>
+</body>
+</html>
