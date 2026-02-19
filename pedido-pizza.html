@@ -19,7 +19,7 @@
     }
 
     header {
-      background-color: #ff0000;
+      background-color: #000000;
       color: white;
       padding: 20px;
       font-size: 24px;
@@ -33,8 +33,8 @@
 
     .btn-voltar {
       font-size: 16px;
-      background-color: #ff4d4d;
-      color: white;
+      background-color: #ffffff;
+      color: rgb(0, 0, 0);
       padding: 10px 20px;
       border-radius: 8px;
       text-decoration: none;
@@ -43,7 +43,7 @@
     }
 
     .btn-voltar:hover {
-      background-color: #cc0000;
+      background-color: #f0f0f0;
     }
 
     .titulo-header {
@@ -56,19 +56,22 @@
     .produtos {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      gap: 25px;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 25px;
     }
 
     .produto {
       background: white;
       border-radius: 12px;
-      padding: 15px;
+      padding: 20px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       text-align: center;
       transition: transform 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     .produto:hover {
@@ -80,45 +83,51 @@
       height: 150px;
       object-fit: cover;
       border-radius: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     .produto h3 {
       margin: 10px 0;
       font-size: 18px;
       color: #333;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .produto p {
       color: #666;
       font-size: 14px;
-      margin-bottom: 15px;
-      min-height: 40px;
+      margin-bottom: 20px;
+      min-height: 80px;
+      line-height: 1.4;
     }
 
     .produto .preco {
       font-weight: bold;
       font-size: 18px;
-      margin-bottom: 15px;
-      color: #ff5722;
+      margin-bottom: 20px;
+      color: #000000;
+      min-height: 30px;
     }
 
     .produto button {
-      background-color: #ff5722;
+      background-color: #000000;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 20px;
       border-radius: 6px;
       cursor: pointer;
       font-size: 14px;
       width: 100%;
       transition: background-color 0.3s;
+      margin-top: auto;
     }
 
     .produto button:hover {
-      background-color: #e64a19;
+      background-color: #333333;
     }
-
 
     .modal-personalizar {
       display: none;
@@ -134,13 +143,15 @@
 
     .modal-content {
       background-color: white;
-      margin: 5% auto;
+      margin: 2% auto;
       padding: 25px;
       border-radius: 10px;
       width: 90%;
-      max-width: 500px;
+      max-width: 600px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       animation: modalopen 0.4s;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     @keyframes modalopen {
@@ -173,78 +184,117 @@
       color: #333;
     }
 
-    .ingredientes-opcoes {
-      margin-bottom: 20px;
+    .opcao-grupo {
+      margin-bottom: 25px;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      border-left: 4px solid #000000;
     }
 
-    .ingrediente-item {
+    .opcao-titulo {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      padding: 8px 0;
-      border-bottom: 1px dashed #eee;
     }
 
-    .ingrediente-nome {
-      font-weight: 600;
+    .obrigatorio {
+      color: #ff0000;
+      font-size: 12px;
     }
 
-    .ingrediente-controle {
+    .contador-opcao {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .opcao-item {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-    }
-
-    .ingrediente-controle button {
-      background-color: #f0f0f0;
-      border: none;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
+      padding: 12px;
+      margin: 8px 0;
+      background: white;
+      border-radius: 6px;
+      border: 1px solid #eee;
+      transition: all 0.3s;
       cursor: pointer;
+    }
+
+    .opcao-item:hover {
+      border-color: #ff5722;
+      background: #fff8f6;
+    }
+
+    .opcao-item.selecionado {
+      border-color: #ff5722;
+      background: #fff0eb;
+    }
+
+    .opcao-info {
+      flex: 1;
+    }
+
+    .opcao-nome {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .opcao-descricao {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .opcao-preco {
       font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ingrediente-controle span {
-      margin: 0 10px;
-      min-width: 20px;
-      text-align: center;
-    }
-
-    .ingrediente-preco {
       color: #ff5722;
-      font-weight: bold;
-      margin-left: 10px;
+      margin-left: 15px;
+      min-width: 80px;
+      text-align: right;
     }
 
-    .observacoes {
-      margin-top: 20px;
+    .radio-custom {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      margin-right: 10px;
+      position: relative;
+      flex-shrink: 0;
     }
 
-    .observacoes textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      resize: vertical;
-      min-height: 80px;
-      font-family: 'Poppins', sans-serif;
+    .radio-custom.selecionado::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: #ff5722;
+      border-radius: 50%;
     }
 
     .modal-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 20px;
+      margin-top: 25px;
       padding-top: 15px;
       border-top: 1px solid #eee;
+      position: sticky;
+      bottom: 0;
+      background: white;
+      padding-bottom: 10px;
     }
 
     .preco-total {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
       color: #ff5722;
     }
@@ -253,15 +303,38 @@
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 25px;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 16px;
       transition: background-color 0.3s;
     }
 
     .btn-confirmar:hover {
       background-color: #45a049;
+    }
+
+    .btn-confirmar:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    .btn-voltar-modal {
+      background-color: #6c757d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      transition: background-color 0.3s;
+      margin-right: 10px;
+    }
+
+    .btn-voltar-modal:hover {
+      background-color: #5a6268;
     }
 
     #carrinho-container {
@@ -272,14 +345,15 @@
     }
 
     #carrinho-icon {
-      background-color: #ff0000;
-      color: white;
+      background-color: #ffffff;
+      color: #000000;
       padding: 12px 16px;
       border-radius: 50%;
       font-size: 20px;
       cursor: pointer;
       transition: background 0.3s;
       box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      border: 2px solid #000000;
     }
 
     #carrinho-abinha {
@@ -291,8 +365,9 @@
       border: 1px solid #ccc;
       border-radius: 10px;
       padding: 15px;
-      width: 300px;
+      width: 350px;
       box-shadow: 0 0 12px rgba(0,0,0,0.3);
+      z-index: 1001;
     }
 
     #carrinho-container:hover #carrinho-abinha {
@@ -310,7 +385,7 @@
 
     #carrinho-itens li {
       border-bottom: 1px solid #eee;
-      padding: 8px 0;
+      padding: 10px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -324,23 +399,24 @@
       font-size: 12px;
       color: #666;
       margin-top: 3px;
+      white-space: pre-line;
     }
 
     .carrinho-item-preco {
       font-weight: bold;
-      color: #ff5722;
+      color: #000000;
     }
 
     #carrinho-total {
       font-weight: bold;
       font-size: 18px;
-      color: #ff5722;
+      color: #000000;
     }
 
     #btn-finalizar {
       width: 100%;
-      padding: 10px;
-      background-color: #28a745;
+      padding: 12px;
+      background-color: #000000;
       color: white;
       border: none;
       border-radius: 6px;
@@ -350,7 +426,7 @@
     }
 
     #btn-finalizar:hover {
-      background-color: #218838;
+      background-color: #333333;
     }
 
     .btn-remover {
@@ -358,9 +434,10 @@
       color: white;
       border: none;
       border-radius: 4px;
-      padding: 2px 6px;
+      padding: 4px 8px;
       font-size: 12px;
       cursor: pointer;
+      margin-left: 10px;
     }
 
     .btn-remover:hover {
@@ -377,109 +454,87 @@
 
   <section class="produtos">
     <div class="produto">
-      <img src="pizza.jpg" alt="Pizza De Calabresa">
-      <h3>Pizza De Calabresa</h3>
-      <p>Massa de pizza, Mussarela, Calabresa, Cebola, Orégano, Azeitonas</p>
-      <div class="preco">R$ 60,00</div>
-      <button onclick="abrirModalPersonalizar('Pizza De Calabresa', 60.00, ['Queijo', 'Orégano', 'Azeitonas', 'Cebola'])">Adicionar ao Carrinho</button>
+      <img src="pizza.jpg" alt="Pizza Broto Salgada 1 Sabor">
+      <h3>Pizza Broto Salgada 1 Sabor</h3>
+      <p>Pizza 25cm - Escolha seu sabor favorito</p>
+      <div class="preco">A partir de R$ 30,00</div>
+      <button onclick="abrirModalSabor('broto')">Personalizar e Adicionar</button>
     </div>
 
     <div class="produto">
-      <img src="pizza de 4 queijo.png" alt="Pizza De 4 Queijo">
-      <h3>Pizza De 4 Queijo</h3>
-      <p>Massa De Pizza, Muçarela, Cheddar, Parmesão, Provolone</p>
-      <div class="preco">R$ 55,00</div>
-      <button onclick="abrirModalPersonalizar('Pizza De 4 Queijo', 55.00, ['Queijo Extra', 'Bacon Extra', 'Carne Extra', 'Ovo Extra'])">Adicionar ao Carrinho</button>
+      <img src="Pizza Broto Doce 1 Sabor.png" alt="Pizza Broto Doce 1 Sabor">
+      <h3>Pizza Broto Doce 1 Sabor</h3>
+      <p>Pizza 25cm - Escolha seu sabor doce favorito</p>
+      <div class="preco">A partir de R$ 30,00</div>
+      <button onclick="abrirModalSabor('doce')">Personalizar e Adicionar</button>
     </div>
 
     <div class="produto">
-      <img src="pizza moda da casa.jpg" alt="Pizza Moda Da Casa">
-      <h3>Pizza Moda Da Casa</h3>
-      <p>Massa De Pizza, Molho de tomate, Queijo muçarela,Calabresa, Presunto, Bacon, Tomate, Cebola, Azeitonas, Pimentão, Orégano e manjericão</p>
-      <div class="preco">R$ 60,00</div>
-      <button onclick="abrirModalPersonalizar('Pizza Moda Da Casa', 60.00, ['Queijo Extra', 'Presunto Extra', 'Tomate', 'Orégano'])">Adicionar ao Carrinho</button>
+      <img src="PIZZA GRANDE 1 SABOR.png" alt="Pizza Grande 1 Sabor">
+      <h3>Pizza Grande 1 Sabor</h3>
+      <p>Satisfaça seu apetite com nossa Pizza Grande de 1 sabor</p>
+      <div class="preco">A partir de R$ 51,00</div>
+      <button onclick="abrirModalSabor('grande-1')">Personalizar e Adicionar</button>
+    </div>
+
+    <div class="produto">
+      <img src="PIZZA GRANDE 2 SABORES.png" alt="Pizza Grande 2 Sabores">
+      <h3>Pizza Grande 2 Sabores</h3>
+      <p>Escolha 2 sabores diferentes para sua pizza grande</p>
+      <div class="preco">A partir de R$ 52,00</div>
+      <button onclick="abrirModalSabor('grande-2')">Personalizar e Adicionar</button>
     </div>
   </section>
-  <style>.produtos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; 
-    justify-content: center;
-    padding: 20px;
-}
 
-.produto {
-    width: 230px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px; 
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    background-color: #fff;
-    margin-left: 0; 
-}
-  
-  .produto img {
-    width: 90%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .produto h3 {
-    margin: 10px 0 5px;
-    text-align: center;
-  }
-  
-  .produto p {
-    font-size: 14px;
-    text-align: center;
-    flex-grow: 1;
-  }
-  
-  .produto .preco {
-  font-weight: bold;
-  margin: 10px 0;
-  color: #000;
-}
-
-  
-  .produto button {
-    padding: 8px 12px;
-    background-color: #ff0000;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    align-self: stretch;
-    margin-top: 10px;
-  }
-  
-  .produto button:hover {
-    background-color: #ff0000;
-  }
-  </style>
-
-  <div id="modal-personalizar" class="modal-personalizar">
+  <!-- MODAL PARA ESCOLHA DE SABOR (todos os tipos) -->
+  <div id="modal-sabor" class="modal-personalizar">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 id="modal-titulo">Personalizar Lanche</h2>
-        <span class="close">&times;</span>
+        <h2 id="modal-sabor-titulo">Escolha o Sabor</h2>
+        <span class="close" onclick="fecharModal('modal-sabor')">&times;</span>
       </div>
       
-      <div class="ingredientes-opcoes" id="ingredientes-opcoes">
+      <div class="opcao-grupo">
+        <div class="opcao-titulo">
+          <span id="modal-sabor-subtitulo">Escolha o sabor</span>
+          <div class="contador-opcao" id="contador-sabor-modal">0/1</div>
+        </div>
+        <div class="obrigatorio">Obrigatório</div>
+        <div id="lista-sabores-modal"></div>
       </div>
       
-      <div class="observacoes">
-        <label for="observacoes-text">Observações especiais:</label>
-        <textarea id="observacoes-text" placeholder="Ex: Sem cebola, pão bem tostado..."></textarea>
+      <div class="modal-footer">
+        <div class="preco-total">Subtotal: R$ <span id="preco-sabor-modal">0.00</span></div>
+        <div>
+          <button class="btn-confirmar" id="btn-avancar-sabor" onclick="avancarParaBorda()" disabled>Próximo →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PARA ESCOLHA DE BORDA (todos os tipos) -->
+  <div id="modal-borda" class="modal-personalizar">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-borda-titulo">Escolha a Borda</h2>
+        <span class="close" onclick="fecharModal('modal-borda')">&times;</span>
+      </div>
+      
+      <div class="opcao-grupo">
+        <div class="opcao-titulo">
+          <span>Escolha a borda</span>
+          <div class="contador-opcao" id="contador-borda-modal">0/1</div>
+        </div>
+        <div>Opcional</div>
+        <div id="lista-bordas-modal"></div>
       </div>
       
       <div class="modal-footer">
         <div class="preco-total">Total: R$ <span id="preco-total-modal">0.00</span></div>
-        <button class="btn-confirmar" id="btn-confirmar-pedido">Confirmar Pedido</button>
+        <div>
+          <button class="btn-voltar-modal" onclick="voltarParaSabor()">← Voltar</button>
+          <button class="btn-confirmar" id="btn-confirmar-final" onclick="finalizarPedido()">Confirmar Pedido</button>
+        </div>
       </div>
     </div>
   </div>
@@ -495,126 +550,504 @@
   </div>
 
   <script>
-  
-    let produtoAtual = null;
-    let precoBase = 0;
-    let precoTotal = 0;
-    let ingredientesSelecionados = {};
+    // DADOS COMPLETOS DAS PIZZAS (copiados do seu código original)
+    const saboresBroto = [
+      { nome: "4 Queijos - BROTO", preco: 37.00, descricao: "Molho especial, queijo mussarela, queijo prato, queijo provolone, queijo parmesão, azeitona e orégano." },
+      { nome: "Atum - BROTO", preco: 36.00, descricao: "Molho especial, queijo mussarela, atum, cebola, azeitona e orégano." },
+      { nome: "Bacon - BROTO", preco: 33.00, descricao: "Molho especial, queijo mussarela, bacon, azeitona e orégano." },
+      { nome: "Calabacon Broto", preco: 35.00, descricao: "" },
+      { nome: "Calabacon Especial Cheddar Broto", preco: 36.00, descricao: "" },
+      { nome: "Calabacon Especial Requeijão Cremoso Broto", preco: 36.00, descricao: "" },
+      { nome: "Calabresa Acebolada Broto", preco: 32.00, descricao: "Molho especial, calabresa, queijo mussarela, cebola, azeitona e orégano." },
+      { nome: "Calabresa Cremosa Requeijão BROTO", preco: 36.00, descricao: "" },
+      { nome: "Carijó Broto", preco: 38.00, descricao: "" },
+      { nome: "Frango com Requeijão Cremoso Broto", preco: 36.00, descricao: "" },
+      { nome: "Frango Crocante Broto", preco: 36.00, descricao: "" },
+      { nome: "Lima's Broto", preco: 36.00, descricao: "" },
+      { nome: "Milho Verde Broto", preco: 32.00, descricao: "Molho especial, queijo mussarela, milho verde, azeitona e orégano." },
+      { nome: "Mussarela Broto", preco: 32.00, descricao: "" },
+      { nome: "Mussarela Cremosa Broto", preco: 32.00, descricao: "" },
+      { nome: "Napolitana Broto", preco: 32.00, descricao: "" },
+      { nome: "Peperone Broto", preco: 35.00, descricao: "" },
+      { nome: "Portuguesa Broto", preco: 36.00, descricao: "" },
+      { nome: "Calabresa Broto sem Cebola", preco: 32.00, descricao: "Molho especial, calabresa, queijo mussarela, azeitona e orégano." },
+      { nome: "Palmito Broto", preco: 30.00, descricao: "Molho especial, mussarela, palmito, orégano e azeitona." },
+      { nome: "Vegetariana Broto", preco: 30.00, descricao: "Molho especial, mussarela, milho verde, palmito, tomate, orégano e azeitona." }
+    ];
 
-    function abrirModalPersonalizar(nome, preco, ingredientes) {
-      produtoAtual = nome;
-      precoBase = preco;
-      precoTotal = preco;
-      ingredientesSelecionados = {};
+    const bordasBroto = [
+      { nome: "Borda de Chocolate ao Leite", preco: 10.00 },
+      { nome: "Borda de Chocolate Branco", preco: 10.00 },
+      { nome: "Borda de Creme de Avelã", preco: 10.00 },
+      { nome: "Borda de Requeijão Cremoso", preco: 10.00 },
+      { nome: "Borda Mussarela", preco: 12.00 }
+    ];
+
+    const saboresDoce = [
+      { nome: "Brigadeiro", preco: 30.00, descricao: "Chocolate ao leite e granulado." },
+      { nome: "Dois Amores", preco: 35.00, descricao: "Chocolate branco e creme de avelã." },
+      { nome: "Ouro Branco", preco: 30.00, descricao: "Chocolate branco, ouro branco e leite condensado" },
+      { nome: "Prestígio", preco: 35.00, descricao: "Chocolate ao leite, coco e leite condensado." },
+      { nome: "Sonho de Valsa", preco: 35.00, descricao: "Chocolate ao leite, sonho de valsa e leite condensado" }
+    ];
+
+    const bordasDoce = [
+      { nome: "Borda de Chocolate ao Leite", preco: 10.00 },
+      { nome: "Borda de Chocolate Branco", preco: 10.00 },
+      { nome: "Borda de Creme de Avelã", preco: 10.00 },
+      { nome: "Borda de Requeijão Cremoso", preco: 10.00 },
+      { nome: "Borda Mussarela", preco: 12.00 }
+    ];
+
+    const saboresGrande1 = [
+      { nome: "4 Queijos", preco: 63.00, descricao: "Molho especial, queijo mussarela, queijo prato, queijo provolone, queijo parmesão, azeitona e orégano." },
+      { nome: "Atum", preco: 66.00, descricao: "Molho especial, queijo mussarela, atum, cebola, azeitona e orégano." },
+      { nome: "Bacon", preco: 59.00, descricao: "Molho especial, queijo mussarela, bacon, azeitona e orégano." },
+      { nome: "Bacon Especial Cheddar", preco: 67.00, descricao: "Molho especial, queijo mussarela, bacon, cheddar, azeitona e orégano." },
+      { nome: "Bacon Especial Requeijao", preco: 67.00, descricao: "Molho especial, queijo mussarela, bacon, requeijão cremoso, azeitona e orégano." },
+      { nome: "Brigadeiro", preco: 57.00, descricao: "Chocolate ao leite e disquete." },
+      { nome: "Calabacon", preco: 60.00, descricao: "Molho especial, queijo mussarela, calabresa, bacon, azeitona e orégano." },
+      { nome: "Calabacon Especial Cheddar", preco: 68.00, descricao: "Molho especial, queijo mussarela, calabresa, bacon, cheddar, azeitona e orégano." },
+      { nome: "Calabacon Especial Requeijao", preco: 68.00, descricao: "Molho especial, queijo mussarela, calabresa, bacon, requeijão cremoso, azeitona e orégano." },
+      { nome: "Calabresa Acebolada", preco: 56.00, descricao: "Molho especial, calabresa, queijo mussarela, cebola, azeitona e orégano." },
+      { nome: "Calabresa Cremosa Requeijao", preco: 62.00, descricao: "Molho especial, queijo mussarela, calabresa ralada, requeijão cremoso, azeitona e orégano." },
+      { nome: "Calabresa Cremosa Cheddar", preco: 62.00, descricao: "molho especial, queijo mussarela, calabresa ralada, cheddar, azeitona e orégano" },
+      { nome: "Carijó", preco: 65.00, descricao: "Molho especial, bacon, milho, frango desfiado, ovo, requeijão cremoso, queijo mussarela, azeitona e orégano." },
+      { nome: "Dois Amores", preco: 60.00, descricao: "chocolate branco e creme de avelã." },
+      { nome: "Frango com Requeijão", preco: 64.00, descricao: "Molho especial, frango desfiado, requeijão cremoso, queijo mussarela, tomate, azeitona e orégano." },
+      { nome: "Frango Crocante", preco: 64.00, descricao: "Molho especial, frango desfiado, bacon, queijo mussarela, tomate, azeitona e orégano." },
+      { nome: "Lima's", preco: 64.00, descricao: "Molho especial, queijo mussarela, presunto, calabresa, palmito, milho, requeijão cremoso, azeitona e orégano." },
+      { nome: "Milho Verde", preco: 51.00, descricao: "Molho especial, queijo mussarela, milho verde, azeitona e orégano." },
+      { nome: "Mussarela", preco: 50.00, descricao: "Molho especial, queijo mussarela, azeitona e orégano." },
+      { nome: "Mussarela Cremosa", preco: 58.00, descricao: "Molho especial, queijo mussarela, requeijão cremoso, azeitona e orégano" },
+      { nome: "Napolitana", preco: 51.00, descricao: "Molho especial, presunto, queijo mussarela, tomate, azeitona e orégano." },
+      { nome: "Ouro Branco", preco: 60.00, descricao: "Chocolate branco, ouro branco, leite condensado." },
+      { nome: "Peperone", preco: 60.00, descricao: "Molho especial, queijo mussarela, peperone, azeitona e orégano." },
+      { nome: "Portuguesa", preco: 62.00, descricao: "Molho especial, queijo mussarela, presunto, milho, ovo, cebola, azeitona e orégano." },
+      { nome: "Prestígio", preco: 57.00, descricao: "Chocolate ao leite, coco e leite condensado." },
+      { nome: "Sensação", preco: 57.00, descricao: "Creme de avelã e morango." },
+      { nome: "Sonho de Valsa", preco: 60.00, descricao: "Chocolate ao leite, sonho de valsa, leite condensado." },
+      { nome: "Calabresa sem Cebola", preco: 56.00, descricao: "Molho especial, calabresa, queijo mussarela, azeitona e orégano." },
+      { nome: "Palmito", preco: 52.00, descricao: "Molho especial, mussarela, palmito, orégano e azeitona" },
+      { nome: "Vegetariana", preco: 55.00, descricao: "Molho especial, mussarela, milho verde, palmito, tomate, orégano e azeitona." }
+    ];
+
+    const bordasGrande1 = [
+      { nome: "Borda de Cheddar", preco: 12.00 },
+      { nome: "Borda de Chocolate ao Leite", preco: 12.00 },
+      { nome: "Borda de Chocolate Branco", preco: 12.00 },
+      { nome: "Borda de Creme de Avelã", preco: 12.00 },
+      { nome: "Borda de Requeijão Cremoso", preco: 12.00 },
+      { nome: "Borda Mussarela", preco: 14.00 },
+      { nome: "BORDA DE CALABRESA", preco: 18.00 },
+      { nome: "Borda Frango com Requeijão", preco: 18.00 }
+    ];
+
+    const saboresGrande2 = [
+      { nome: "4 Queijos 1/2", preco: 34.00, descricao: "Molho especial, queijo mussarela, queijo prato, queijo provolone, queijo parmesão, azeitona e orégano." },
+      { nome: "Atum 1/2", preco: 36.00, descricao: "Molho especial, queijo mussarela, atum, cebola, azeitona e orégano." },
+      { nome: "Bacon 1/2", preco: 31.00, descricao: "Molho especial, queijo mussarela, bacon, azeitona e orégano." },
+      { nome: "Bacon Especial Cheddar 1/2", preco: 34.00, descricao: "Molho especial, queijo mussarela, bacon, cheddar, azeitona e orégano." },
+      { nome: "Bacon Especial Requeijao 1/2", preco: 34.00, descricao: "Molho especial, queijo mussarela, bacon, requeijão cremoso, azeitona e orégano." },
+      { nome: "Brigadeiro 1/2", preco: 28.00, descricao: "Chocolate ao leite e disquete." },
+      { nome: "Calabacon 1/2", preco: 32.00, descricao: "Molho especial, queijo mussarela, calabresa, bacon, azeitona e orégano." },
+      { nome: "Calabacon Especial 1/2 Requeijao", preco: 35.00, descricao: "Molho especial, queijo mussarela, calabresa, bacon, requeijão cremoso, azeitona e orégano." },
+      { nome: "Calabacon Especial Cheddar 1/2", preco: 35.00, descricao: "Molho especial, queijo mussarela, calabresa, bacon, cheddar, azeitona e orégano." },
+      { nome: "Calabresa Acebolada 1/2", preco: 30.00, descricao: "Molho especial, queijo mussarela, cebola, azeitona e orégano." },
+      { nome: "Calabresa Cremosa Cheddar 1/2", preco: 35.00, descricao: "Molho especial, queijo mussarela, calabresa ralada, cheddar, azeitona e orégano." },
+      { nome: "Calabresa Cremosa Requeijao 1/2", preco: 35.00, descricao: "Molho especial, queijo mussarela, calabresa ralada, requeijão cremoso, azeitona e orégano." },
+      { nome: "Carijó 1/2", preco: 35.00, descricao: "Molho especial, bacon, milho, frango desfiado, ovo, requeijão cremoso, queijo mussarela, azeitona e orégano." },
+      { nome: "Dois Amores 1/2", preco: 32.00, descricao: "Chocolate branco e creme de avelã." },
+      { nome: "Frango com Requeijão 1/2", preco: 34.00, descricao: "Molho especial, frango desfiado, requeijão cremoso, queijo mussarela, tomate, azeitona e orégano." },
+      { nome: "Frango Crocante 1/2", preco: 34.00, descricao: "Molho especial, frango desfiado, bacon, queijo mussarela, tomate, azeitona e orégano." },
+      { nome: "Lima's 1/2", preco: 34.00, descricao: "Molho especial, queijo mussarela, presunto, calabresa, palmito, milho, requeijão cremoso, azeitona e orégano." },
+      { nome: "Milho Verde 1/2", preco: 26.00, descricao: "Molho especial, queijo mussarela, milho verde, azeitona e orégano." },
+      { nome: "Mussarela 1/2", preco: 26.00, descricao: "Molho especial, queijo mussarela, azeitona e orégano." },
+      { nome: "Mussarela Cremosa 1/2", preco: 30.00, descricao: "Molho especial, queijo mussarela, requeijão cremoso, azeitona e orégano." },
+      { nome: "Napolitana 1/2", preco: 26.00, descricao: "Molho especial, presunto, queijo mussarela, tomate, azeitona e orégano." },
+      { nome: "Ouro Branco 1/2", preco: 32.00, descricao: "Chocolate branco, ouro branco, leite condensado." },
+      { nome: "Peperone 1/2", preco: 32.00, descricao: "Molho especial, queijo mussarela, peperone, azeitona e orégano." },
+      { nome: "Portuguesa 1/2", preco: 33.00, descricao: "Molho especial, queijo mussarela, presunto, milho, ovo, cebola, azeitona e orégano." },
+      { nome: "Prestígio 1/2", preco: 28.00, descricao: "Chocolate ao leite, coco e leite condensado." },
+      { nome: "Sonho de Valsa 1/2", preco: 32.00, descricao: "Chocolate ao leite, sonho de valsa, leite condensado." },
+      { nome: "Calabresa 1/2 sem Cebola", preco: 30.00, descricao: "Molho especial, calabresa, queijo mussarela, azeitona e orégano." },
+      { nome: "Palmito 1/2", preco: 27.00, descricao: "Molho especial, mussarela, palmito, orégano e azeitona" },
+      { nome: "Vegetariana 1/2", preco: 28.00, descricao: "Molho especial, mussarela, milho verde, palmito, tomate, orégano e azeitona." }
+    ];
+
+    const bordasGrande2 = [
+      { nome: "Borda de Cheddar", preco: 12.00 },
+      { nome: "Borda de Chocolate ao Leite", preco: 12.00 },
+      { nome: "Borda de Chocolate Branco", preco: 12.00 },
+      { nome: "Borda de Creme de Avelã", preco: 12.00 },
+      { nome: "Borda de Requeijão Cremoso", preco: 12.00 },
+      { nome: "Borda Mussarela", preco: 14.00 },
+      { nome: "BORDA DE CALABRESA", preco: 18.00 },
+      { nome: "Borda Frango com Requeijão", preco: 18.00 }
+    ];
+
+    // Variáveis globais para controlar o estado
+    let pizzaTipoAtual = null; // 'broto', 'doce', 'grande-1', 'grande-2'
+    let saborSelecionadoIndex = null;
+    let saboresSelecionadosMultiplos = [];
+    let bordaSelecionadaIndex = null;
+
+    function fecharModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    function abrirModalSabor(tipo) {
+      pizzaTipoAtual = tipo;
+      saborSelecionadoIndex = null;
+      saboresSelecionadosMultiplos = [];
+      bordaSelecionadaIndex = null;
       
-      document.getElementById('modal-titulo').textContent = `Personalizar ${nome}`;
-      document.getElementById('preco-total-modal').textContent = preco.toFixed(2);
-      document.getElementById('observacoes-text').value = '';
+      // Configurar título baseado no tipo
+      const titulos = {
+        'broto': 'Pizza Broto Salgada 1 Sabor',
+        'doce': 'Pizza Broto Doce 1 Sabor',
+        'grande-1': 'Pizza Grande 1 Sabor',
+        'grande-2': 'Pizza Grande 2 Sabores'
+      };
       
-      const container = document.getElementById('ingredientes-opcoes');
-      container.innerHTML = '';
+      document.getElementById('modal-sabor-titulo').textContent = titulos[tipo];
       
-      ingredientes.forEach(ingrediente => {
+      // Configurar subtítulo
+      const subtitulos = {
+        'broto': 'Escolha o seu sabor de pizza broto',
+        'doce': 'Escolha o sabor de sua pizza doce:',
+        'grande-1': 'Escolha o sabor da sua pizza:',
+        'grande-2': 'Escolha os sabores da sua pizza:'
+      };
+      
+      document.getElementById('modal-sabor-subtitulo').textContent = subtitulos[tipo];
+      
+      // Carregar sabores corretos
+      let saboresArray;
+      switch(tipo) {
+        case 'broto': saboresArray = saboresBroto; break;
+        case 'doce': saboresArray = saboresDoce; break;
+        case 'grande-1': saboresArray = saboresGrande1; break;
+        case 'grande-2': saboresArray = saboresGrande2; break;
+      }
+      
+      carregarSaboresModal(saboresArray, tipo === 'grande-2');
+      atualizarContadorSaborModal(tipo);
+      atualizarPrecoSaborModal(tipo);
+      atualizarBotaoAvancar(tipo);
+      
+      document.getElementById('modal-sabor').style.display = 'block';
+    }
+
+    function carregarSaboresModal(saboresArray, multiplos = false) {
+      const lista = document.getElementById('lista-sabores-modal');
+      lista.innerHTML = '';
+      
+      saboresArray.forEach((sabor, index) => {
+        const selecionado = multiplos 
+          ? saboresSelecionadosMultiplos.includes(index)
+          : saborSelecionadoIndex === index;
+          
         const item = document.createElement('div');
-        item.className = 'ingrediente-item';
-        
-        const precoExtra = Math.random() > 0.5 ? 3.00 : 2.50; 
+        item.className = `opcao-item ${selecionado ? 'selecionado' : ''}`;
+        item.onclick = () => selecionarSaborModal(index, multiplos);
         
         item.innerHTML = `
-          <div class="ingrediente-nome">${ingrediente}</div>
-          <div class="ingrediente-controle">
-            <button onclick="diminuirIngrediente('${ingrediente}', ${precoExtra})">-</button>
-            <span id="qtd-${ingrediente.replace(/\s+/g, '-')}">0</span>
-            <button onclick="aumentarIngrediente('${ingrediente}', ${precoExtra})">+</button>
-            <span class="ingrediente-preco">+R$ ${precoExtra.toFixed(2)}</span>
+          <div style="display: flex; align-items: center; width: 100%;">
+            <div class="radio-custom ${selecionado ? 'selecionado' : ''}"></div>
+            <div class="opcao-info">
+              <div class="opcao-nome">${sabor.nome}</div>
+              ${sabor.descricao ? `<div class="opcao-descricao">${sabor.descricao}</div>` : ''}
+            </div>
+            <div class="opcao-preco">+ R$ ${sabor.preco.toFixed(2)}</div>
           </div>
         `;
         
-        container.appendChild(item);
+        lista.appendChild(item);
       });
-      
-      document.getElementById('modal-personalizar').style.display = 'block';
     }
 
-    document.querySelector('.close').addEventListener('click', function() {
-      document.getElementById('modal-personalizar').style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-      if (event.target === document.getElementById('modal-personalizar')) {
-        document.getElementById('modal-personalizar').style.display = 'none';
-      }
-    });
-
-    function aumentarIngrediente(nome, preco) {
-      const id = nome.replace(/\s+/g, '-');
-      const qtdElement = document.getElementById(`qtd-${id}`);
-      let qtd = parseInt(qtdElement.textContent) || 0;
-      
-      qtd++;
-      qtdElement.textContent = qtd;
-      
-      if (!ingredientesSelecionados[nome]) {
-        ingredientesSelecionados[nome] = { quantidade: 0, preco: preco };
+    function selecionarSaborModal(index, multiplos = false) {
+      if (multiplos) {
+        const posicao = saboresSelecionadosMultiplos.indexOf(index);
+        if (posicao === -1) {
+          if (saboresSelecionadosMultiplos.length >= 2) {
+            saboresSelecionadosMultiplos.shift();
+          }
+          saboresSelecionadosMultiplos.push(index);
+        } else {
+          saboresSelecionadosMultiplos.splice(posicao, 1);
+        }
+      } else {
+        saborSelecionadoIndex = saborSelecionadoIndex === index ? null : index;
       }
       
-      ingredientesSelecionados[nome].quantidade = qtd;
-      precoTotal += preco;
-      atualizarPrecoModal();
+      let saboresArray;
+      switch(pizzaTipoAtual) {
+        case 'broto': saboresArray = saboresBroto; break;
+        case 'doce': saboresArray = saboresDoce; break;
+        case 'grande-1': saboresArray = saboresGrande1; break;
+        case 'grande-2': saboresArray = saboresGrande2; break;
+      }
+      
+      carregarSaboresModal(saboresArray, multiplos);
+      atualizarContadorSaborModal(pizzaTipoAtual);
+      atualizarPrecoSaborModal(pizzaTipoAtual);
+      atualizarBotaoAvancar(pizzaTipoAtual);
     }
 
-    function diminuirIngrediente(nome, preco) {
-      const id = nome.replace(/\s+/g, '-');
-      const qtdElement = document.getElementById(`qtd-${id}`);
-      let qtd = parseInt(qtdElement.textContent) || 0;
+    function atualizarContadorSaborModal(tipo) {
+      const contador = document.getElementById('contador-sabor-modal');
+      let count = 0;
+      let max = 1;
       
-      if (qtd > 0) {
-        qtd--;
-        qtdElement.textContent = qtd;
-        
-        ingredientesSelecionados[nome].quantidade = qtd;
-        precoTotal -= preco;
-        atualizarPrecoModal();
+      if (tipo === 'grande-2') {
+        count = saboresSelecionadosMultiplos.length;
+        max = 2;
+        contador.textContent = `${count}/${max}`;
+      } else {
+        count = saborSelecionadoIndex !== null ? 1 : 0;
+        contador.textContent = `${count}/${max}`;
       }
     }
 
-    function atualizarPrecoModal() {
-      document.getElementById('preco-total-modal').textContent = precoTotal.toFixed(2);
-    }
-
-    document.getElementById('btn-confirmar-pedido').addEventListener('click', function() {
-      const observacoes = document.getElementById('observacoes-text').value;
-
-      let descricaoExtras = '';
-      for (const [ingrediente, info] of Object.entries(ingredientesSelecionados)) {
-        if (info.quantidade > 0) {
-          descricaoExtras += `${info.quantidade}x ${ingrediente}, `;
+    function atualizarPrecoSaborModal(tipo) {
+      let total = 0;
+      
+      if (tipo === 'grande-2') {
+        saboresSelecionadosMultiplos.forEach(index => {
+          total += saboresGrande2[index].preco;
+        });
+      } else {
+        let saborSelecionado;
+        switch(tipo) {
+          case 'broto': 
+            if (saborSelecionadoIndex !== null) total = saboresBroto[saborSelecionadoIndex].preco;
+            break;
+          case 'doce':
+            if (saborSelecionadoIndex !== null) total = saboresDoce[saborSelecionadoIndex].preco;
+            break;
+          case 'grande-1':
+            if (saborSelecionadoIndex !== null) total = saboresGrande1[saborSelecionadoIndex].preco;
+            break;
         }
       }
       
-      if (observacoes) {
-        descricaoExtras += `Obs: ${observacoes}`;
+      document.getElementById('preco-sabor-modal').textContent = total.toFixed(2);
+      // Atualizar também o preço total no modal de borda
+      atualizarPrecoTotalModal();
+    }
+
+    function atualizarBotaoAvancar(tipo) {
+      const botao = document.getElementById('btn-avancar-sabor');
+      let habilitado = false;
+      
+      if (tipo === 'grande-2') {
+        habilitado = saboresSelecionadosMultiplos.length > 0;
+      } else {
+        habilitado = saborSelecionadoIndex !== null;
       }
       
-      adicionarAoCarrinho(produtoAtual, precoTotal, descricaoExtras);
+      if (habilitado) {
+        botao.disabled = false;
+        botao.style.opacity = '1';
+      } else {
+        botao.disabled = true;
+        botao.style.opacity = '0.6';
+      }
+    }
+
+    function avancarParaBorda() {
+      fecharModal('modal-sabor');
       
-      document.getElementById('modal-personalizar').style.display = 'none';
-    });
+      // Configurar título do modal de borda
+      const titulos = {
+        'broto': 'Pizza Broto Salgada 1 Sabor - Escolha a Borda',
+        'doce': 'Pizza Broto Doce 1 Sabor - Escolha a Borda',
+        'grande-1': 'Pizza Grande 1 Sabor - Escolha a Borda',
+        'grande-2': 'Pizza Grande 2 Sabores - Escolha a Borda'
+      };
+      
+      document.getElementById('modal-borda-titulo').textContent = titulos[pizzaTipoAtual];
+      
+      // Carregar bordas corretas
+      let bordasArray;
+      switch(pizzaTipoAtual) {
+        case 'broto': bordasArray = bordasBroto; break;
+        case 'doce': bordasArray = bordasDoce; break;
+        case 'grande-1': bordasArray = bordasGrande1; break;
+        case 'grande-2': bordasArray = bordasGrande2; break;
+      }
+      
+      carregarBordasModal(bordasArray);
+      atualizarContadorBordaModal();
+      atualizarPrecoTotalModal();
+      
+      document.getElementById('modal-borda').style.display = 'block';
+    }
 
+    function carregarBordasModal(bordasArray) {
+      const lista = document.getElementById('lista-bordas-modal');
+      lista.innerHTML = '';
+      
+      bordasArray.forEach((borda, index) => {
+        const selecionado = bordaSelecionadaIndex === index;
+        const item = document.createElement('div');
+        item.className = `opcao-item ${selecionado ? 'selecionado' : ''}`;
+        item.onclick = () => selecionarBordaModal(index);
+        
+        item.innerHTML = `
+          <div style="display: flex; align-items: center; width: 100%;">
+            <div class="radio-custom ${selecionado ? 'selecionado' : ''}"></div>
+            <div class="opcao-info">
+              <div class="opcao-nome">${borda.nome}</div>
+            </div>
+            <div class="opcao-preco">+ R$ ${borda.preco.toFixed(2)}</div>
+          </div>
+        `;
+        
+        lista.appendChild(item);
+      });
+    }
 
+    function selecionarBordaModal(index) {
+      bordaSelecionadaIndex = bordaSelecionadaIndex === index ? null : index;
+      
+      let bordasArray;
+      switch(pizzaTipoAtual) {
+        case 'broto': bordasArray = bordasBroto; break;
+        case 'doce': bordasArray = bordasDoce; break;
+        case 'grande-1': bordasArray = bordasGrande1; break;
+        case 'grande-2': bordasArray = bordasGrande2; break;
+      }
+      
+      carregarBordasModal(bordasArray);
+      atualizarContadorBordaModal();
+      atualizarPrecoTotalModal();
+    }
+
+    function atualizarContadorBordaModal() {
+      const contador = document.getElementById('contador-borda-modal');
+      const count = bordaSelecionadaIndex !== null ? 1 : 0;
+      contador.textContent = `${count}/1`;
+    }
+
+    function atualizarPrecoTotalModal() {
+      let total = 0;
+      
+      // Adicionar preço do(s) sabor(es)
+      if (pizzaTipoAtual === 'grande-2') {
+        saboresSelecionadosMultiplos.forEach(index => {
+          total += saboresGrande2[index].preco;
+        });
+      } else {
+        switch(pizzaTipoAtual) {
+          case 'broto': 
+            if (saborSelecionadoIndex !== null) total += saboresBroto[saborSelecionadoIndex].preco;
+            break;
+          case 'doce':
+            if (saborSelecionadoIndex !== null) total += saboresDoce[saborSelecionadoIndex].preco;
+            break;
+          case 'grande-1':
+            if (saborSelecionadoIndex !== null) total += saboresGrande1[saborSelecionadoIndex].preco;
+            break;
+        }
+      }
+      
+      // Adicionar preço da borda
+      if (bordaSelecionadaIndex !== null) {
+        let bordaPreco = 0;
+        switch(pizzaTipoAtual) {
+          case 'broto': bordaPreco = bordasBroto[bordaSelecionadaIndex].preco; break;
+          case 'doce': bordaPreco = bordasDoce[bordaSelecionadaIndex].preco; break;
+          case 'grande-1': bordaPreco = bordasGrande1[bordaSelecionadaIndex].preco; break;
+          case 'grande-2': bordaPreco = bordasGrande2[bordaSelecionadaIndex].preco; break;
+        }
+        total += bordaPreco;
+      }
+      
+      document.getElementById('preco-total-modal').textContent = total.toFixed(2);
+    }
+
+    function voltarParaSabor() {
+      fecharModal('modal-borda');
+      document.getElementById('modal-sabor').style.display = 'block';
+    }
+
+    function finalizarPedido() {
+      // Validar se pelo menos um sabor foi selecionado
+      if ((pizzaTipoAtual !== 'grande-2' && saborSelecionadoIndex === null) ||
+          (pizzaTipoAtual === 'grande-2' && saboresSelecionadosMultiplos.length === 0)) {
+        alert('Por favor, selecione um sabor primeiro!');
+        voltarParaSabor();
+        return;
+      }
+      
+      const total = parseFloat(document.getElementById('preco-total-modal').textContent);
+      
+      // Construir nome do item para o carrinho
+      const nomesPizza = {
+        'broto': 'Pizza Broto Salgada 1 Sabor',
+        'doce': 'Pizza Broto Doce 1 Sabor',
+        'grande-1': 'Pizza Grande 1 Sabor',
+        'grande-2': 'Pizza Grande 2 Sabores'
+      };
+      
+      let detalhes = "";
+      
+      // Adicionar detalhes dos sabores
+      if (pizzaTipoAtual === 'grande-2') {
+        detalhes = "Sabores: ";
+        saboresSelecionadosMultiplos.forEach((index, i) => {
+          const sabor = saboresGrande2[index];
+          detalhes += `${sabor.nome} (+R$ ${sabor.preco.toFixed(2)})`;
+          if (i < saboresSelecionadosMultiplos.length - 1) detalhes += " + ";
+        });
+      } else {
+        let sabor;
+        switch(pizzaTipoAtual) {
+          case 'broto': sabor = saboresBroto[saborSelecionadoIndex]; break;
+          case 'doce': sabor = saboresDoce[saborSelecionadoIndex]; break;
+          case 'grande-1': sabor = saboresGrande1[saborSelecionadoIndex]; break;
+        }
+        detalhes = `Sabor: ${sabor.nome} (+R$ ${sabor.preco.toFixed(2)})`;
+      }
+      
+      // Adicionar detalhes da borda
+      if (bordaSelecionadaIndex !== null) {
+        let borda;
+        switch(pizzaTipoAtual) {
+          case 'broto': borda = bordasBroto[bordaSelecionadaIndex]; break;
+          case 'doce': borda = bordasDoce[bordaSelecionadaIndex]; break;
+          case 'grande-1': borda = bordasGrande1[bordaSelecionadaIndex]; break;
+          case 'grande-2': borda = bordasGrande2[bordaSelecionadaIndex]; break;
+        }
+        detalhes += `\nBorda: ${borda.nome} (+R$ ${borda.preco.toFixed(2)})`;
+      }
+      
+      adicionarAoCarrinho(nomesPizza[pizzaTipoAtual], total, detalhes);
+      
+      fecharModal('modal-borda');
+      alert('Pizza adicionada ao carrinho!');
+      
+      // Resetar seleções
+      pizzaTipoAtual = null;
+      saborSelecionadoIndex = null;
+      saboresSelecionadosMultiplos = [];
+      bordaSelecionadaIndex = null;
+    }
+
+    // Funções do carrinho (mantidas iguais)
     function adicionarAoCarrinho(nome, preco, detalhes = '') {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       
-
       const itemExistenteIndex = cart.findIndex(item => 
         item.name === nome && item.detalhes === detalhes
       );
       
       if (itemExistenteIndex !== -1) {
-      
         cart[itemExistenteIndex].quantity += 1;
       } else {
-   
         cart.push({
           name: nome,
           price: preco,
@@ -627,11 +1060,14 @@
       atualizarAbinhaCarrinho();
     }
 
-    function removerItemCarrinho(nome, detalhes) {
+    function removerItemCarrinho(index) {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart = cart.filter(item => !(item.name === nome && item.detalhes === detalhes));
-      localStorage.setItem("cart", JSON.stringify(cart));
-      atualizarAbinhaCarrinho();
+      
+      if (index >= 0 && index < cart.length) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        atualizarAbinhaCarrinho();
+      }
     }
 
     function atualizarAbinhaCarrinho() {
@@ -641,18 +1077,17 @@
       lista.innerHTML = "";
       let total = 0;
 
-      cart.forEach(item => {
+      cart.forEach((item, index) => {
         const li = document.createElement("li");
-        
         const valorTotalItem = item.price * item.quantity;
         li.innerHTML = `
-          <div>
+          <div style="flex: 1;">
             <div class="carrinho-item-nome">${item.name} - ${item.quantity}x</div>
             ${item.detalhes ? `<div class="carrinho-item-detalhes">${item.detalhes}</div>` : ''}
           </div>
-          <div>
-            <span class="carrinho-item-preco">R$ ${valorTotalItem.toFixed(2)}</span>
-            <button class="btn-remover" onclick="removerItemCarrinho('${item.name}', '${item.detalhes}')">Remover</button>
+          <div style="text-align: right;">
+            <div class="carrinho-item-preco">R$ ${valorTotalItem.toFixed(2)}</div>
+            <button class="btn-remover" onclick="removerItemCarrinho(${index})">Remover</button>
           </div>
         `;
         
@@ -661,7 +1096,32 @@
       });
 
       totalSpan.textContent = total.toFixed(2);
+      
+      if (cart.length === 0) {
+        document.getElementById('carrinho-abinha').style.display = 'none';
+      }
     }
+
+    // Event listeners (mantidos iguais)
+    document.getElementById('carrinho-container').addEventListener('mouseenter', function() {
+      document.getElementById('carrinho-abinha').style.display = 'block';
+    });
+
+    document.getElementById('carrinho-container').addEventListener('mouseleave', function(e) {
+      if (!e.relatedTarget || !e.relatedTarget.closest('#carrinho-container')) {
+        document.getElementById('carrinho-abinha').style.display = 'none';
+      }
+    });
+
+    window.addEventListener('click', function(event) {
+      const modais = ['modal-sabor', 'modal-borda'];
+      modais.forEach(modalId => {
+        const modal = document.getElementById(modalId);
+        if (event.target === modal) {
+          fecharModal(modalId);
+        }
+      });
+    });
 
     document.addEventListener("DOMContentLoaded", function() {
       atualizarAbinhaCarrinho();
